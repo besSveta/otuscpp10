@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include<vector>
-
+// информация о блоке, команды складываются в строку в рамках одного блока.
 class BulkInfo {
 	std::string bulkString;
 	int commandCount;
@@ -75,6 +75,7 @@ class CommandProcessor {
 	State processorState;
 public:
 	CommandProcessor(size_t n);
+// вектор блоков, очищается по мере вывода в фал и на экран.
 	std::vector<BulkInfo> bulks;
 	size_t GetBulkSize();
 	void SetState(State st);
