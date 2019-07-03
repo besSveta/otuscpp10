@@ -72,13 +72,11 @@ void WriteToFile(int &commandsCount, int & blockCount, CommandProcessor &p) {
 #ifdef _WIN32
 #include <direct.h>
 #endif
-int main(int, char *argv[]) {
-
-	size_t n;
-
-	n = std::atoi(argv[1]);
-	if (n == 0)
-		n = 2;
+int main(int count, char *argv[]) {
+	int n;
+	if(argv[1]!=nullptr)
+		n = std::atoi(argv[1]);
+	else n=2;
 #ifdef _WIN32
 	auto status = _mkdir("bulkfiles");
 #else
@@ -94,7 +92,6 @@ int main(int, char *argv[]) {
 	int logBlockCount = 0;
 	std::thread logThread(WriteToConsole, std::ref(logCommandCount),
 		std::ref(logBlockCount), std::ref(p));
-	logThread.detach();
 
 	int file1CommandCount = 0;
 	int file1BlockCount = 0;
@@ -115,9 +112,11 @@ int main(int, char *argv[]) {
 		lk.lock();
 		p.ProcessCommand(trim(line));
 		lk.unlock();
-		if (p.GetState() == State::Processed) {
-			mainBlockCount++;
-			mainCommandCount += p.bulks.back().GetCommandCount();
+		if (p.GetState() == State::Processed || p.GetState() == State::Finish) {
+			if (p.GetState() == State::Processed ){
+				mainBlockCount++;
+				mainCommandCount += p.bulks.back().GetCommandCount();
+			}
 			cv.notify_all();
 			ConsoleCv.notify_one();
 		}

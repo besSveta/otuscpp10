@@ -86,6 +86,7 @@
 				processorState = State::Finish;
 				return;
 			}
+			
 			prevTime = currentTime;
 			processorState = State::WaitComand;
 			// новый блок.
