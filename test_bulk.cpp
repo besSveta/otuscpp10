@@ -7,7 +7,7 @@
 
 #define BOOST_TEST_MODULE ip_filter_test_module
 #include <boost/test/included/unit_test.hpp>
-#include "bulk.h"
+#include "bulkmt.h"
 
 BOOST_AUTO_TEST_SUITE(bulk_test_suite)
 
