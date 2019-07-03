@@ -76,7 +76,7 @@ int main(int, char *argv[]) {
 
 	size_t n;
 
-	n = std::atoi(argv[0]);
+	n = std::atoi(argv[1]);
 	if (n == 0)
 		n = 2;
 #ifdef _WIN32
