@@ -78,7 +78,7 @@
 
 			auto currentTime = sclock::now();
 			auto currentTime_t = sclock::to_time_t(currentTime);
-			auto recieveTime = std::to_string(std::chrono::duration_cast<std::chrono::seconds>(currentTime.time_since_epoch()).count());
+			auto recieveTime = std::to_string(std::chrono::duration_cast<std::chrono::microseconds>(currentTime.time_since_epoch()).count());
 			auto diff = std::chrono::duration_cast<std::chrono::seconds>(
 				currentTime - prevTime).count();
 			// выйти при вводе пустой строки и интервале между командами >2 секунд..
