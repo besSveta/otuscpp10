@@ -78,7 +78,7 @@
 
 			auto currentTime = sclock::now();
 			auto currentTime_t = sclock::to_time_t(currentTime);
-			auto recieveTime = std::string(std::ctime(&currentTime_t));
+			auto recieveTime = std::to_string(std::chrono::duration_cast<std::chrono::seconds>(currentTime.time_since_epoch()).count());
 			auto diff = std::chrono::duration_cast<std::chrono::seconds>(
 				currentTime - prevTime).count();
 			// выйти при вводе пустой строки и интервале между командами >2 секунд..
@@ -86,7 +86,12 @@
 				processorState = State::Finish;
 				return;
 			}
-			
+			/*else {
+				if (diff >4){
+					processorState = State::Finish;
+									return;
+				}
+			}*/
 			prevTime = currentTime;
 			processorState = State::WaitComand;
 			// новый блок.
@@ -108,7 +113,7 @@
 					}
 				}
 				else {
-					commandCollector.AddCommand(command, std::to_string(diff));
+					commandCollector.AddCommand(command, recieveTime);
 					// если блок команд полностью заполнен и размер блока не был изменен скобкой.
 					if (commandCollector.size() == N && openCount == 0) {
 						CallProcessor();
