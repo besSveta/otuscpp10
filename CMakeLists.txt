@@ -9,8 +9,8 @@ add_library(library bulkmt_lib.cpp)
 add_executable(test_bulk test_bulk.cpp)
 
 set_target_properties(test_bulk library bulkmt PROPERTIES
-	CXXSTANDARD 17
-	CSS_STANDARD_REQUIRED ON
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
 	COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
 )
 

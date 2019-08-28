@@ -1,6 +1,9 @@
 dist: xenial
 language: cpp
 compiler: clang
+env:
+- COMPILER_FLAGS="-fsanitize=thread"
+- LINKER_FLAGS="-fsanitize=thread"
 before_script:
 - sudo apt update
 - sudo apt install libboost-test-dev libspdlog-dev -y
