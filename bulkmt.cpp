@@ -117,8 +117,10 @@ int main(int count, char *argv[]) {
 				mainBlockCount++;
 				mainCommandCount += p.bulks.back().GetCommandCount();
 			}
+lk.lock();
 			cv.notify_all();
 			ConsoleCv.notify_one();
+lk.unlock();
 		}
 	}
 	p.SetState(State::Finish);
